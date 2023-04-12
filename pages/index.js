@@ -1,7 +1,9 @@
-
+import styles from  '../styles/Home.module.scss'
 function index() {
   return (
-    <div>index</div>
+    <div>
+      <h1 className={styles.red}>WOW</h1>
+    </div>
   )
 }
 
