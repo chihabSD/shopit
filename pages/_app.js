@@ -1,6 +1,17 @@
-import '../styles/reset.scss'
-function MyApp({Component, pageProps}) {
-
-    return <Component {...pageProps} /> 
+import "../styles/reset.scss";
+import store from "../store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+let persistor = persistStore(store);
+function MyApp({ Component, pageProps }) {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Component {...pageProps} />
+      </PersistGate>
+    </Provider>
+  );
 }
-export default MyApp
+export default MyApp;
+
