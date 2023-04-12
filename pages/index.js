@@ -1,10 +1,9 @@
+import Header from '../components/header'
 import styles from  '../styles/Home.module.scss'
-function index() {
+export default function Home() {
   return (
     <div>
-      <h1 className={styles.red}>WOW</h1>
+      <Header />
     </div>
   )
 }
-
-export default index
