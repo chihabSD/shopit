@@ -8,7 +8,7 @@ import UserMenu from "./UserMenu";
 import { useSession } from "next-auth/react";
 export default function Top({ country }) {
   const { data: session } = useSession();
-  const [visible, setVisible] = useState(false);
+  const [visible,  ] = useState(false);
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>
