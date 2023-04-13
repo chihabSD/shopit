@@ -5,7 +5,7 @@ import { BsSuitHeart } from "react-icons/bs";
 import { RiAccountPinCircleFill, RiArrowDownFill } from "react-icons/ri";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
-export default function Top() {
+export default function Top({country}) {
   const [loggedin, setLoggedIn] = useState(true);
   return (
     <div className={styles.top}>
@@ -14,10 +14,10 @@ export default function Top() {
         <ul className={styles.top__list}>
           <li className={styles.li}>
             <img
-              src="https://res.cloudinary.com/doodo0tre/image/upload/v1680024410/letsChat/anita-austvika-9nbntSgETqQ-unsplash_ancqku.jpg"
+              src={country.flag}
               alt=""
             />
-            <span> Morroco / USD</span>
+            <span> {country.name} / USD</span>
           </li>
           <li className={styles.li}>
             <MdSecurity />

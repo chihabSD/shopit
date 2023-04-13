@@ -10,11 +10,15 @@ export default function Copyright({ country }) {
           {data.map((link) => (
             <li>
               <Link href={link.link}>{link.name}</Link>
+              <h1>
+
+              
+              </h1>
             </li>
           ))}
           <li>
             <a>
-              {/* <IoLocationSharp /> {country.name} */}
+              <IoLocationSharp /> {country.name}
             </a>
           </li>
         </ul>
