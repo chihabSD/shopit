@@ -8,7 +8,6 @@ export default function Home({country}) {
   return (
     <div>
       <Header country={country} />
-      {session  ? "You are logged in ": "You ar enot logoed"}
       <Footer country={country} />
     </div>
   );
