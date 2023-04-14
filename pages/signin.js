@@ -1,10 +1,14 @@
+
+import Header from "../components/header";
+import Footer from "../components/footer";
 import styles from "../styles/signin.module.scss";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import Link from "next/link";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import LoginInput from "../components/inputs/loginInput";
 import { useState } from "react";
-
+import CircledIconBtn from "../components/buttons/circledIconBtn";
 import {
   getCsrfToken,
   getProviders,
@@ -13,12 +17,8 @@ import {
   country,
 } from "next-auth/react";
 import axios from "axios";
+import DotLoaderSpinner from "../components/loaders/dotLoader";
 import Router from "next/router";
-import CircledIconBtn from "@/components/buttons/circleIconBtn";
-import LoginInput from "@/components/input/logininput";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import DotLoaderSpinner from "@/components/loaders";
 const initialvalues = {
   login_email: "",
   login_password: "",
@@ -174,7 +174,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   />
                   <CircledIconBtn type="submit" text="Sign in" />
                   {login_error && (
-                    <span className={styles.error}>{login_error}</span>
+                    <span className={styles.error}>{login_error}ee</span>
                   )}
                   <div className={styles.forgot}>
                     <Link href="/auth/forgot">Forgot password ?</Link>
@@ -271,10 +271,25 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
 }
 
 export async function getServerSideProps(context) {
+  const { req, query } = context;
+
+  const session = await getSession({ req });
+  const { callbackUrl } = query;
+
+  if (session) {
+    return {
+      redirect: {
+        destination: callbackUrl,
+      },
+    };
+  }
+  const csrfToken = await getCsrfToken(context);
   const providers = Object.values(await getProviders());
   return {
     props: {
       providers,
+      csrfToken,
+      callbackUrl,
     },
   };
 }

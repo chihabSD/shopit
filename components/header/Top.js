@@ -4,11 +4,12 @@ import { BsSuitHeart } from "react-icons/bs";
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
-import UserMenu from "./UserMenu";
+// import UserMenu from "./UserMenu";
 import { useSession } from "next-auth/react";
+import UserMenu from "./UserMenu";
 export default function Top({ country }) {
   const { data: session } = useSession();
-  const [visible,  ] = useState(false);
+  const [visible, setVisible] = useState(false);
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>

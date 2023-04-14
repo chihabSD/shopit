@@ -9,8 +9,8 @@ import { getSession, signIn } from "next-auth/react";
 import jwt from "jsonwebtoken";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import CircledIconBtn from "@/components/buttons/circleIconBtn";
-import LoginInput from "@/components/input/logininput";
+import CircledIconBtn from "@/components/buttons/circledIconBtn";
+import LoginInput from "@/components/inputs/logininput";
 import DotLoaderSpinner from "@/components/loaders";
 export default function reset({ user_id }) {
   console.log("user_id", user_id);

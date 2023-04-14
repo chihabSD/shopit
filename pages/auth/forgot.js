@@ -7,9 +7,9 @@ import Link from "next/link";
 import axios from "axios";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import CircledIconBtn from "@/components/buttons/circleIconBtn";
-import LoginInput from "@/components/input/logininput";
-import DotLoaderSpinner from "@/components/loaders";
+import CircledIconBtn from "@/components/buttons/circledIconBtn";
+import LoginInput from "@/components/inputs/logininput";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 export default function forgot() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
