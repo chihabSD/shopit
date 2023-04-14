@@ -1,4 +1,3 @@
-import Footer from "../components/footer";
 import styles from "../styles/signin.module.scss";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import Link from "next/link";
@@ -6,12 +5,20 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 
+import {
+  getCsrfToken,
+  getProviders,
+  getSession,
+  signIn,
+  country,
+} from "next-auth/react";
 import axios from "axios";
 import Router from "next/router";
-import Header from "../components/header";
-import LoginInput from "../components/input/logininput";
-import CircledIconBtn from "../components/buttons/circleIconBtn";
-import { getProviders } from "next-auth/react";
+import CircledIconBtn from "@/components/buttons/circleIconBtn";
+import LoginInput from "@/components/input/logininput";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import DotLoaderSpinner from "@/components/loaders";
 const initialvalues = {
   login_email: "",
   login_password: "",
@@ -116,6 +123,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   };
   return (
     <>
+      {loading && <DotLoaderSpinner loading={loading} />}
       <Header country={country} />
       <div className={styles.login}>
         <div className={styles.login__container}>
@@ -164,7 +172,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                     placeholder="Password"
                     onChange={handleChange}
                   />
-            <CircledIconBtn type="submit" text="Login " />{" "}
+                  <CircledIconBtn type="submit" text="Sign in" />
                   {login_error && (
                     <span className={styles.error}>{login_error}</span>
                   )}
@@ -174,6 +182,27 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                 </Form>
               )}
             </Formik>
+            <div className={styles.login__socials}>
+              <span className={styles.or}>Or continue with</span>
+              <div className={styles.login__socials_wrap}>
+                {providers.map((provider) => {
+                  if (provider.name == "Credentials") {
+                    return;
+                  }
+                  return (
+                    <div key={provider.name}>
+                      <button
+                        className={styles.social__btn}
+                        onClick={() => signIn(provider.id)}
+                      >
+                        <img src={`../../icons/${provider.name}.png`} alt="" />
+                        Sign in with {provider.name}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
         <div className={styles.login__container}>
@@ -229,27 +258,6 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                 </Form>
               )}
             </Formik>
-            <div className={styles.login__socials}>
-              <span className={styles.or}>Or continue with </span>
-              <div className={styles.login__social_wrap}>
-                {providers.map((provider) => {
-                  if (provider.name == "Credentials") {
-                    return;
-                  }
-                  return (
-                    <div key={provider.name}>
-                      <button
-                        className={styles.social__btn}
-                        onClick={() => signIn(provider.id)}
-                      >
-                        <img src={`../../icons/${provider.name}.png`} alt="" />
-                        Sign in with {provider.name}
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
             <div>
               {success && <span className={styles.success}>{success}</span>}
             </div>
@@ -261,6 +269,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
     </>
   );
 }
+
 export async function getServerSideProps(context) {
   const providers = Object.values(await getProviders());
   return {
