@@ -11,7 +11,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
 import LoginInput from "@/components/inputs/logininput";
-import DotLoaderSpinner from "@/components/loaders";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 export default function reset({ user_id }) {
   console.log("user_id", user_id);
   const [password, setPassword] = useState("");
