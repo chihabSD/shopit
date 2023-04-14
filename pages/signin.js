@@ -13,12 +13,12 @@ import {
   country,
 } from "next-auth/react";
 import axios from "axios";
-import Router from "next/router";
 import CircledIconBtn from "@/components/buttons/circleIconBtn";
 import LoginInput from "@/components/input/logininput";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import DotLoaderSpinner from "@/components/loaders";
+import Router from "next/router";
 const initialvalues = {
   login_email: "",
   login_password: "",
@@ -271,10 +271,25 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
 }
 
 export async function getServerSideProps(context) {
+  const { req, query } = context;
+
+  const session = await getSession({ req });
+  const { callbackUrl } = query;
+
+  if (session) {
+    return {
+      redirect: {
+        destination: callbackUrl,
+      },
+    };
+  }
+  const csrfToken = await getCsrfToken(context);
   const providers = Object.values(await getProviders());
   return {
     props: {
       providers,
+      csrfToken,
+      callbackUrl,
     },
   };
 }
