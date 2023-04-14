@@ -1,15 +1,11 @@
 import nc from "next-connect";
 import bcrypt from "bcrypt";
-// import { validateEmail } from "../../../utils/validation";
-// import db from "../../../utils/db";
-// import User from "../../../models/User";
-
-import { validateEmail } from "@/utils/valdiation";
-import { activateEmailTemplate } from "@/emails/activateEmailTemplates";
-import { sendEmail } from "@/utils/sendEmails";
+import { sendEmail } from "../../../utils/sendEmails";
 import { createActivationToken } from "@/utils/tokens";
+import { activateEmailTemplate } from "@/emails/activateEmailTemplates";
 import User from "@/models/User";
 import db from "@/utils/db";
+import { validateEmail } from "@/utils/valdiation";
 const handler = nc();
 
 handler.post(async (req, res) => {
@@ -45,7 +41,6 @@ handler.post(async (req, res) => {
       message: "Register success! Please activate your email to start.",
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 });
