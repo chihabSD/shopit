@@ -10,6 +10,8 @@ import axios from "axios";
 import Router from "next/router";
 import Header from "../components/header";
 import LoginInput from "../components/input/logininput";
+import CircledIconBtn from "../components/buttons/circleIconBtn";
+import { getProviders } from "next-auth/react";
 const initialvalues = {
   login_email: "",
   login_password: "",
@@ -162,6 +164,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                     placeholder="Password"
                     onChange={handleChange}
                   />
+            <CircledIconBtn type="submit" text="Login " />{" "}
                   {login_error && (
                     <span className={styles.error}>{login_error}</span>
                   )}
@@ -171,7 +174,6 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                 </Form>
               )}
             </Formik>
-           
           </div>
         </div>
         <div className={styles.login__container}>
@@ -223,10 +225,31 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                     placeholder="Re-Type Password"
                     onChange={handleChange}
                   />
-                  {/* <CircledIconBtn type="submit" text="Sign up" /> */}
+                  <CircledIconBtn type="submit" text="Sign up" />
                 </Form>
               )}
             </Formik>
+            <div className={styles.login__socials}>
+              <span className={styles.or}>Or continue with </span>
+              <div className={styles.login__social_wrap}>
+                {providers.map((provider) => {
+                  if (provider.name == "Credentials") {
+                    return;
+                  }
+                  return (
+                    <div key={provider.name}>
+                      <button
+                        className={styles.social__btn}
+                        onClick={() => signIn(provider.id)}
+                      >
+                        <img src={`../../icons/${provider.name}.png`} alt="" />
+                        Sign in with {provider.name}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
             <div>
               {success && <span className={styles.success}>{success}</span>}
             </div>
@@ -238,6 +261,11 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
     </>
   );
 }
-
-
-
+export async function getServerSideProps(context) {
+  const providers = Object.values(await getProviders());
+  return {
+    props: {
+      providers,
+    },
+  };
+}
