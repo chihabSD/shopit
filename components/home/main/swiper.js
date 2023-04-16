@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 
 
 // import required modules
-import { Pagination, Navigation } from "swiper";
+import { Pagination, Navigation, Autoplay } from "swiper";
 
 export default function MainSwiper() {
   return (
@@ -20,11 +20,16 @@ export default function MainSwiper() {
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
+        
         pagination={{
           clickable: true,
         }}
+        autoplay={{
+          delay:2500
+          , disableOnInteraction:false
+        }}
         navigation={true}
-        modules={[Pagination, Navigation]}
+        modules={[Pagination, Autoplay, Navigation]}
         className="mainSwipper"
       >
         {
