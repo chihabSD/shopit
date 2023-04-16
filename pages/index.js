@@ -6,7 +6,8 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import Main from "@/components/home/main";
 import FlashDeals from "@/components/home/flashDeals";
 import Category from "@/components/home/category";
-import { women_accessories, women_dresses, women_shoes } from "@/data/home";
+import { gamingSwiper, homeImprovSwiper, women_accessories, women_dresses, women_shoes, women_swiper } from "@/data/home";
+import ProductsSwiper from "@/components/productSwiper";
 export default function Home({country}) {
 
   return (
@@ -22,6 +23,9 @@ export default function Home({country}) {
           <Category  header="Shoes / High Heels"  products={women_shoes} background="#5a31f4"/>
           <Category  header="Accessories" products={women_accessories} background="#000"/>
           </div>
+          <ProductsSwiper products={women_swiper} />
+          <ProductsSwiper products={gamingSwiper} header={"For gamers"} bg={"#5C999C"} />
+          <ProductsSwiper products={homeImprovSwiper} header={"House Improvement"} bg={"#3E43E5"}/>
         </div>
       </div>
       <Footer country={country} />
