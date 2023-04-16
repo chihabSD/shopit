@@ -1,13 +1,13 @@
 import Link from "next/link";
 import styles from "./styles.module.scss";
-let logo = require('../../public/images/logo.png')
+
 export default function Links() {
   return (
     <div className={styles.footer__links}>
       {links.map((link, i) => (
         <ul>
           {i === 0 ? (
-            <img src={logo} alt="" />
+            <img src="../../../logo.png" alt="" />
           ) : (
             <b>{link.heading}</b>
           )}
