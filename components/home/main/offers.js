@@ -2,13 +2,14 @@ import React from 'react'
 import styles from './styles.module.scss'
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 
 // import required modules
 import { Pagination, Autoplay, Navigation } from "swiper";
+import { offersAarray } from '@/data/home';
+import Link from 'next/link';
 
 export default function App() {
   return (
@@ -22,15 +23,17 @@ export default function App() {
         modules={[Pagination,  Navigation]}
         className="offers_swipper"
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        {offersAarray.map(offer => (
+
+        <SwiperSlide>
+            <Link href="">
+            <img src={offer.image} alt="" />
+            </Link>
+            <span>{offer.price}$</span>
+            <span>{offer.discount}%</span>
+        </SwiperSlide>
+        ))}
+   
       </Swiper>
     </div>
   );
