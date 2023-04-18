@@ -8,7 +8,10 @@ import FlashDeals from "@/components/home/flashDeals";
 import Category from "@/components/home/category";
 import { gamingSwiper, homeImprovSwiper, women_accessories, women_dresses, women_shoes, women_swiper } from "@/data/home";
 import ProductsSwiper from "@/components/productSwiper";
-export default function Home({country}) {
+import db from "@/utils/db";
+import Product from "@/models/Product";
+import ProductCard from "@/components/productCard";
+export default function Home({country, products}) {
 
   return (
     <>
@@ -26,6 +29,11 @@ export default function Home({country}) {
           <ProductsSwiper products={women_swiper} />
           <ProductsSwiper products={gamingSwiper} header={"For gamers"} bg={"#5C999C"} />
           <ProductsSwiper products={homeImprovSwiper} header={"House Improvement"} bg={"#3E43E5"}/>
+          <div className={styles.products}>
+            {products.map((product) => (
+              <ProductCard product={product} key={product._id} />
+            ))}
+          </div>
         </div>
       </div>
       <Footer country={country} />
@@ -45,10 +53,14 @@ export async function getServerSideProps() {
   //     console.log(err);
   //   });
 
+  db.connectDb()
+  let products = await Product.find().sort({createdAt:-1}).lean()
+
   return {
     props: {
       // country: {name:data.name, flag:data.flag.emojitwo},
       country: {name:'Ireland', flag:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACfCAMAAABX0UX9AAAAOVBMVEX///8Bmkr/eQD/eAD/dQMAmUn///3v/fMAnkgmnF3/9+/7eQDzhy3k5OT5egAEnU3V59nl5uPr3NTr7FI6AAABKklEQVR4nO3QiRGCMBAAwBxvImKA/ou1Cm4G3S1hS4+eoUY79hzn9d6mIUeJOTLUua0lxbK89D2lr+vTp0/fP/WNoz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTp06dPnz59+vTpu7fvM223/w369Ol7dF/K3u/25ajRjj3HeeX1fQEzaBKVOmQhkwAAAABJRU5ErkJggg=='},
+      products:JSON.parse(JSON.stringify(products))
     },
   };
 }
