@@ -8,6 +8,7 @@ import { BsHandbagFill, BsHeart } from "react-icons/bs";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, useSession } from "next-auth/react";
+import Share from "./share";
 export default function Infos({ product, setActiveImg }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ export default function Infos({ product, setActiveImg }) {
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
 
   useEffect(() => {
     setSize("");
@@ -129,8 +129,8 @@ export default function Infos({ product, setActiveImg }) {
         </div>
         {error && <span className={styles.error}>{error}</span>}
         {success && <span className={styles.success}>{success}</span>}
-
       </div>
+      <Share />
     </div>
   );
 }
