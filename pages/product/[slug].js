@@ -1,42 +1,36 @@
-import styles from "../../styles/products.module.scss";
-import Head from "next/head";
-import { useState } from "react";
+import React, { useState } from "react";
 
+import styles from "../../styles/product.module.scss";
 import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
 import SubCategory from "@/models/SubCategory";
 import User from "@/models/User";
+import Head from "next/head";
 import Header from "@/components/header";
-import ProductsSwiper from "@/components/productSwiper";
-export default function product({ product, related }) {
-    console.log(product);
-  const [activeImg, setActiveImg] = useState("");
-  const country = {
-    name: "Morocco",
-    flag: "https://cdn-icons-png.flaticon.com/512/197/197551.png?w=360",
-  };
+import MainSwiper from "@/components/productPage/mainSwiper";
+export default function product({ product }) {
+  const [activeImg, setActiveImage] = useState("")
   return (
-    <>
+    <div>
       <Head>
         <title>{product.name}</title>
       </Head>
-      <Header country={country} />
+      <Header country="Ireland" />
       <div className={styles.product}>
-        <div className={styles.product__container}>
+        <div className={styles.product_container}>
           <div className={styles.path}>
-            Home / {product.category.name}
+            Home / {product.category.name} /{" "}
             {product.subCategories.map((sub) => (
               <span>/{sub.name}</span>
             ))}
           </div>
           <div className={styles.product__main}>
-          <ProductsSwiper products={related} />
+            <MainSwiper images={product.images} activeImg={activeImg} />
           </div>
-          
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -131,7 +125,6 @@ export async function getServerSideProps(context) {
     ).toFixed(1);
   }
   db.disconnectDb();
-  console.log("related", related);
   return {
     props: {
       product: JSON.parse(JSON.stringify(newProduct)),
