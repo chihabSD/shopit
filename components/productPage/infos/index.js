@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, useSession } from "next-auth/react";
 import Share from "./share";
+import Accordian from "./Accordian";
+import SimillarSwiper from "./SimillarSwiper";
 export default function Infos({ product, setActiveImg }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -131,6 +133,8 @@ export default function Infos({ product, setActiveImg }) {
         {success && <span className={styles.success}>{success}</span>}
       </div>
       <Share />
+      <Accordian details={[product.description, ...product.details]} /> 
+      <SimillarSwiper />
     </div>
   );
 }

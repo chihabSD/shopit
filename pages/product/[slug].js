@@ -10,8 +10,9 @@ import Head from "next/head";
 import Header from "@/components/header";
 import MainSwiper from "@/components/productPage/mainSwiper";
 import Infos from "@/components/productPage/infos";
+import Reviews from "@/components/productPage/reviews";
 export default function product({ product }) {
-  const [activeImg, setActiveImage] = useState("")
+  const [activeImg, setActiveImage] = useState("");
   return (
     <div>
       <Head>
@@ -27,8 +28,9 @@ export default function product({ product }) {
             ))}
           </div>
           <div className={styles.product__main}>
-<MainSwiper images={product.images} activeImg={activeImg} />
-<Infos product={product} setActiveImage={setActiveImage} />
+            <MainSwiper images={product.images} activeImg={activeImg} />
+            <Infos product={product} setActiveImage={setActiveImage} />
+          <Reviews product={product} />
           </div>
         </div>
       </div>
