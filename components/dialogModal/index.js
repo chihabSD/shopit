@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import styles from "./styles.module.scss";
+import { useDispatch } from "react-redux";
 ;
 export default function DialogModal({ type }) {
   const dispatch = useDispatch();

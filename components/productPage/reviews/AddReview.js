@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import Images from "./Images";
 import Select from "./Select";
 import styles from "./styles.module.scss";
-import { hideDialog, showDialog } from "../../../store/DialogSlice";
 import DialogModal from "../../../components/dialogModal";
 import dataURItoBlob from "../../../utils/dataURItoBlob";
 import { uploadImages } from "../../../requests/upload";
@@ -14,9 +13,7 @@ import { FaLastfmSquare } from "react-icons/fa";
 export default function AddReview({ product, setReviews }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(hideDialog());
-  }, []);
+
   const [size, setSize] = useState("");
   const [style, setStyle] = useState("");
   const [fit, setFit] = useState("");
@@ -58,12 +55,7 @@ export default function AddReview({ product, setReviews }) {
       });
     }
     if (msgs.length > 0) {
-      dispatch(
-        showDialog({
-          header: "Adding review error !",
-          msgs,
-        })
-      );
+    return console.log('sss'); 
     } else {
       if (images.length > 0) {
         let temp = images.map((img) => {
