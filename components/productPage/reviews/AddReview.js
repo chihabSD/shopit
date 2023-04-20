@@ -4,20 +4,19 @@ import { useDispatch } from "react-redux";
 import Images from "./Images";
 import Select from "./Select";
 import styles from "./styles.module.scss";
-// import { hideDialog, showDialog } from "../../../store/DialogSlice";
-// import DialogModal from "../../../components/dialogModal";
-
-// import { uploadImages } from "../../../requests/upload";
+import { hideDialog, showDialog } from "../../../store/DialogSlice";
+import DialogModal from "../../../components/dialogModal";
+import dataURItoBlob from "../../../utils/dataURItoBlob";
+import { uploadImages } from "../../../requests/upload";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { FaLastfmSquare } from "react-icons/fa";
-import dataURItoBlob from "@/utils/dataURItoBlob";
 export default function AddReview({ product, setReviews }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(hideDialog());
-//   }, []);
+  useEffect(() => {
+    dispatch(hideDialog());
+  }, []);
   const [size, setSize] = useState("");
   const [style, setStyle] = useState("");
   const [fit, setFit] = useState("");
@@ -59,12 +58,12 @@ export default function AddReview({ product, setReviews }) {
       });
     }
     if (msgs.length > 0) {
-    //   dispatch(
-    //     showDialog({
-    //       header: "Adding review error !",
-    //       msgs,
-    //     })
-    //   );
+      dispatch(
+        showDialog({
+          header: "Adding review error !",
+          msgs,
+        })
+      );
     } else {
       if (images.length > 0) {
         let temp = images.map((img) => {
@@ -76,7 +75,7 @@ export default function AddReview({ product, setReviews }) {
         temp.forEach((img) => {
           formData.append("file", img);
         });
-        // uploaded_images = await uploadImages(formData);
+        uploaded_images = await uploadImages(formData);
       }
       const { data } = await axios.put(`/api/product/${product._id}/review`, {
         size,
@@ -98,7 +97,7 @@ export default function AddReview({ product, setReviews }) {
   };
   return (
     <div className={styles.reviews__add}>
-      {/* <DialogModal /> */}
+      <DialogModal />
       <div className={styles.reviews__add_wrap}>
         <div className={styles.flex} style={{ gap: "10px" }}>
           <Select

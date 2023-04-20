@@ -2,15 +2,17 @@ import styles from "./styles.module.scss";
 import Rating from "@mui/material/Rating";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/Link";
 import { TbPlus, TbMinus } from "react-icons/tb";
 import { useEffect } from "react";
 import { BsHandbagFill, BsHeart } from "react-icons/bs";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { signIn, useSession } from "next-auth/react";
 import Share from "./share";
 import Accordian from "./Accordian";
 import SimillarSwiper from "./SimillarSwiper";
+import axios from "axios";
+import DialogModal from "../../dialogModal";
+import { useDispatch, useSelector } from "react-redux";
+import { signIn, useSession } from "next-auth/react";
 export default function Infos({ product, setActiveImg }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -19,7 +21,9 @@ export default function Infos({ product, setActiveImg }) {
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { cart } = useSelector((state) => ({ ...state }));
 
+ 
   useEffect(() => {
     setSize("");
     setQty(1);
@@ -32,7 +36,7 @@ export default function Infos({ product, setActiveImg }) {
 
   return (
     <div className={styles.infos}>
-      {/* <DialogModal /> */}
+      <DialogModal />
       <div className={styles.infos__container}>
         <h1 className={styles.infos__name}>{product.name}</h1>
         <h2 className={styles.infos__sku}>{product.sku}</h2>
@@ -131,10 +135,10 @@ export default function Infos({ product, setActiveImg }) {
         </div>
         {error && <span className={styles.error}>{error}</span>}
         {success && <span className={styles.success}>{success}</span>}
+        <Share />
+        <Accordian details={[product.description, ...product.details]} />
+        <SimillarSwiper />
       </div>
-      <Share />
-      <Accordian details={[product.description, ...product.details]} /> 
-      <SimillarSwiper />
     </div>
   );
 }

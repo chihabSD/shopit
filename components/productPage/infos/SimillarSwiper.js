@@ -1,4 +1,5 @@
-// import { simillar_products } from "../../../data/products";
+import Link from "next/Link";
+import { simillar_products } from "../../../data/products";
 import styles from "./styles.module.scss";
 import { useRef, useState } from "react";
 // Import Swiper React components
@@ -11,8 +12,6 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation } from "swiper";
-import Link from "next/link";
-import { simillar_products } from "@/data/products";
 export default function SimillarSwiper() {
   return (
     <Swiper

@@ -1,7 +1,7 @@
 import { Rating } from "@mui/material";
 import { useSession, signIn } from "next-auth/react";
 import { useState } from "react";
-// import AddReview from "./AddReview";
+import AddReview from "./AddReview";
 import Select from "./Select";
 import styles from "./styles.module.scss";
 import Table from "./Table";
@@ -47,13 +47,13 @@ export default function Reviews({ product }) {
             ))}
           </div>
         </div>
-        {/* {session ? (
+        {session ? (
           <AddReview product={product} setReviews={setReviews} />
         ) : (
           <button onClick={() => signIn()} className={styles.login_btn}>
             Login to add review
           </button>
-        )} */}
+        )}
         <Table
           reviews={reviews}
           allSizes={product.allSizes}
