@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Empty from "../components/cart/empty";
 import Header from "../components/cart/header";
+import Product from "../components/cart/product";
 import styles from "../styles/cart.module.scss";
 import CartHeader from "../components/cart/cartHeader";
 import Checkout from "../components/cart/checkout";
@@ -11,7 +12,6 @@ import { women_swiper } from "../data/home";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { saveCart } from "../requests/user";
-import Product from "@/components/cart/product";
 export default function cart() {
   const Router = useRouter();
   const { data: session } = useSession();
