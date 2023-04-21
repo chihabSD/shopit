@@ -13,6 +13,8 @@ import DialogModal from "../../dialogModal";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
+import { addToCart, updateCart } from "@/store/reducers/cartSlice";
+import { hideDialog } from "@/store/reducers/DialogSlice";
 export default function Infos({ product, setActiveImg }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -23,7 +25,9 @@ export default function Infos({ product, setActiveImg }) {
   const [success, setSuccess] = useState("");
   const { cart } = useSelector((state) => ({ ...state }));
 
- 
+  useEffect(() => {
+    dispatch(hideDialog());
+  }, []);
   useEffect(() => {
     setSize("");
     setQty(1);
@@ -33,7 +37,79 @@ export default function Infos({ product, setActiveImg }) {
       setQty(product.quantity);
     }
   }, [router.query.size]);
-
+  const addToCartHandler = async () => {
+    if (!router.query.size) {
+      setError("Please Select a size");
+      return;
+    }
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&size=${router.query.size}`
+    );
+    if (qty > data.quantity) {
+      setError(
+        "The Quantity you have choosed is more than in stock. Try and lower the Qty"
+      );
+    } else if (data.quantity < 1) {
+      setError("This Product is out of stock.");
+      return;
+    } else {
+      let _uid = `${data._id}_${product.style}_${router.query.size}`;
+      let exist = cart.cartItems.find((p) => p._uid === _uid);
+      if (exist) {
+        let newCart = cart.cartItems.map((p) => {
+          if (p._uid == exist._uid) {
+            return { ...p, qty: qty };
+          }
+          return p;
+        });
+        dispatch(updateCart(newCart));
+      } else {
+        dispatch(
+          addToCart({
+            ...data,
+            qty,
+            size: data.size,
+            _uid,
+          })
+        );
+      }
+    }
+  };
+  ///---------------------------------
+  const handleWishlist = async () => {
+    try {
+      if (!session) {
+        return signIn();
+      }
+      const { data } = await axios.put("/api/user/wishlist", {
+        product_id: product._id,
+        style: product.style,
+      });
+      dispatch(
+        showDialog({
+          header: "Product Added to Whishlist Successfully",
+          msgs: [
+            {
+              msg: data.message,
+              type: "success",
+            },
+          ],
+        })
+      );
+    } catch (error) {
+      dispatch(
+        showDialog({
+          header: "Whishlist Error",
+          msgs: [
+            {
+              msg: error.response.data.message,
+              type: "error",
+            },
+          ],
+        })
+      );
+    }
+  };
   return (
     <div className={styles.infos}>
       <DialogModal />

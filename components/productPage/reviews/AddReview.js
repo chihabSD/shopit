@@ -10,10 +10,13 @@ import { uploadImages } from "../../../requests/upload";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { FaLastfmSquare } from "react-icons/fa";
+import { hideDialog, showDialog } from "@/store/reducers/DialogSlice";
 export default function AddReview({ product, setReviews }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(hideDialog());
+  }, []);
   const [size, setSize] = useState("");
   const [style, setStyle] = useState("");
   const [fit, setFit] = useState("");
@@ -55,7 +58,12 @@ export default function AddReview({ product, setReviews }) {
       });
     }
     if (msgs.length > 0) {
-    return console.log('sss'); 
+      dispatch(
+        showDialog({
+          header: "Adding review error !",
+          msgs,
+        })
+      );
     } else {
       if (images.length > 0) {
         let temp = images.map((img) => {

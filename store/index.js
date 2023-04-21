@@ -3,6 +3,7 @@ import cart from "./reducers/cartSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import dialog from "./reducers/DialogSlice";
+import expandSidebar from "./reducers/ExpandSlice";
 const config = {
   key: "root",
   storage,
@@ -10,7 +11,7 @@ const config = {
 
 const reducers = combineReducers({
   cart,
-  dialog,
+  dialog, expandSidebar
 });
 
 const reducer = persistReducer(config, reducers);
