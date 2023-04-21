@@ -30,7 +30,7 @@ export default function LoginInput({ icon, placeholder, ...props }) {
       {meta.touched && meta.error && (
         <div className={styles.error__popup}>
           <span></span>
-          {/* <ErrorMessage name={field.name} /> */}
+          <ErrorMessage name={field.name} />
         </div>
       )}
     </div>
