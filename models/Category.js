@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-const { ObjectId } = mongoose.Schema;
 
 const categorySchema = new mongoose.Schema(
   {

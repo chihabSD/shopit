@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// save the cart
 export const saveCart = async (cart) => {
   try {
     const { data } = await axios.post("/api/user/saveCart", {
@@ -10,6 +11,7 @@ export const saveCart = async (cart) => {
     return response.data.error.message;
   }
 };
+// save the address
 export const saveAddress = async (address, userId) => {
   try {
     const { data } = await axios.post("/api/user/saveAddress", {
@@ -21,6 +23,7 @@ export const saveAddress = async (address, userId) => {
     return error.response.data.message;
   }
 };
+// change the address
 export const changeActiveAddress = async (id) => {
   try {
     const { data } = await axios.put("/api/user/manageAddress", {
@@ -31,6 +34,7 @@ export const changeActiveAddress = async (id) => {
     return error.response.data.message;
   }
 };
+// delete address
 export const deleteAddress = async (id) => {
   try {
     const { data } = await axios.delete("/api/user/manageAddress", {
@@ -41,6 +45,7 @@ export const deleteAddress = async (id) => {
     return error.response.data.message;
   }
 };
+// apply coupon
 export const applyCoupon = async (coupon) => {
   const { data } = await axios.post("/api/user/applyCoupon", {
     coupon,
