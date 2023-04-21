@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { addToCart, updateCart } from "@/store/reducers/cartSlice";
-import { hideDialog } from "@/store/reducers/DialogSlice";
+import { hideDialog, showDialog } from "@/store/reducers/DialogSlice";
 export default function Infos({ product, setActiveImg }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ export default function Infos({ product, setActiveImg }) {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&size=${router.query.size}`
     );
+    console.log(data);
     if (qty > data.quantity) {
       setError(
         "The Quantity you have choosed is more than in stock. Try and lower the Qty"

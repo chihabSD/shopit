@@ -1,40 +1,46 @@
-import React, { useState } from "react";
-
 import styles from "../../styles/product.module.scss";
-import db from "@/utils/db";
-import Product from "@/models/Product";
-import Category from "@/models/Category";
-import SubCategory from "@/models/SubCategory";
-import User from "@/models/User";
+import db from "../../utils/db";
+import Product from "../../models/Product";
+import Category from "../../models/Category";
+import SubCategory from "../../models/SubCategory";
+import User from "../../models/User";
 import Head from "next/head";
-import Header from "@/components/header";
-import MainSwiper from "@/components/productPage/mainSwiper";
-import Infos from "@/components/productPage/infos";
-import Reviews from "@/components/productPage/reviews";
-export default function product({ product }) {
-  const [activeImg, setActiveImage] = useState("");
+import Header from "../../components/header";
+import MainSwiper from "../../components/productPage/mainSwiper";
+import { useState } from "react";
+import Infos from "../../components/productPage/infos";
+import Reviews from "../../components/productPage/reviews";
+export default function product({ product, related }) {
+  const [activeImg, setActiveImg] = useState("");
+  const country = {
+    name: "Morocco",
+    flag: "https://cdn-icons-png.flaticon.com/512/197/197551.png?w=360",
+  };
   return (
-    <div>
+    <>
       <Head>
         <title>{product.name}</title>
       </Head>
-      <Header country="Ireland" />
+      <Header country={country} />
       <div className={styles.product}>
-        <div className={styles.product_container}>
+        <div className={styles.product__container}>
           <div className={styles.path}>
-            Home / {product.category.name} /{" "}
+            Home / {product.category.name}
             {product.subCategories.map((sub) => (
               <span>/{sub.name}</span>
             ))}
           </div>
           <div className={styles.product__main}>
             <MainSwiper images={product.images} activeImg={activeImg} />
-            <Infos product={product} setActiveImage={setActiveImage} />
-          <Reviews product={product} />
+            <Infos product={product} setActiveImg={setActiveImg} />
           </div>
+          <Reviews product={product} />
+          {/*
+          <ProductsSwiper products={related} />
+          */}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -129,6 +135,7 @@ export async function getServerSideProps(context) {
     ).toFixed(1);
   }
   db.disconnectDb();
+  console.log("related", related);
   return {
     props: {
       product: JSON.parse(JSON.stringify(newProduct)),
