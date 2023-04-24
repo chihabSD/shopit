@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
+import { activateEmailTemplate } from "../emails/activateEmailTemplate";
 const { OAuth2 } = google.auth;
 const OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground";
 
@@ -8,7 +9,6 @@ const {
   MAILING_SERVICE_CLIENT_SECRET,
   MAILING_SERVICE_REFRESH_TOKEN,
   SENDER_EMAIL_ADDRESS,
-  SENDER_EMAIL_ADDRESS_PASSWORD
 } = process.env;
 
 const oauth2Client = new OAuth2(
@@ -30,7 +30,6 @@ export const sendEmail = (to, url, txt, subject, template) => {
     auth: {
       type: "OAuth2",
       user: SENDER_EMAIL_ADDRESS,
-      pass: SENDER_EMAIL_ADDRESS_PASSWORD, 
       clientId: MAILING_SERVICE_CLIENT_ID,
       clientSecret: MAILING_SERVICE_CLIENT_SECRET,
       refreshToken: MAILING_SERVICE_REFRESH_TOKEN,

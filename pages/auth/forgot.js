@@ -1,15 +1,16 @@
 import styles from "../../styles/forgot.module.scss";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 import { BiLeftArrowAlt } from "react-icons/bi";
+import CircledIconBtn from "../../components/buttons/circledIconBtn";
+import LoginInput from "../../components/inputs/loginInput";
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import DotLoaderSpinner from "../../components/loaders/dotLoader";
 import axios from "axios";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import CircledIconBtn from "@/components/buttons/circledIconBtn";
-import LoginInput from "@/components/inputs/logininput";
-import DotLoaderSpinner from "@/components/loaders/dotLoader";
+import { getSession } from "next-auth/react";
 export default function forgot() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");

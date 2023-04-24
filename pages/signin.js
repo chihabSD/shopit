@@ -1,4 +1,3 @@
-
 import Header from "../components/header";
 import Footer from "../components/footer";
 import styles from "../styles/signin.module.scss";
@@ -174,7 +173,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   />
                   <CircledIconBtn type="submit" text="Sign in" />
                   {login_error && (
-                    <span className={styles.error}>{login_error}ee</span>
+                    <span className={styles.error}>{login_error}</span>
                   )}
                   <div className={styles.forgot}>
                     <Link href="/auth/forgot">Forgot password ?</Link>

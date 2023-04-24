@@ -4,6 +4,7 @@ import Empty from "../components/cart/empty";
 import Header from "../components/cart/header";
 import Product from "../components/cart/product";
 import styles from "../styles/cart.module.scss";
+import { updateCart } from "../store/cartSlice";
 import CartHeader from "../components/cart/cartHeader";
 import Checkout from "../components/cart/checkout";
 import PaymentMethods from "../components/cart/paymentMethods";
@@ -12,7 +13,6 @@ import { women_swiper } from "../data/home";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { saveCart } from "../requests/user";
-import { updateCart } from "@/store/reducers/cartSlice";
 export default function cart() {
   const Router = useRouter();
   const { data: session } = useSession();

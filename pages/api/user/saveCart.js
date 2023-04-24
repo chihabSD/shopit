@@ -1,13 +1,11 @@
 import nc from "next-connect";
-
-import Product from "@/models/Product";
-import User from "@/models/User";
-import Cart from "@/models/Cart";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
-
-// use middleware before saving cart 
+import Product from "../../../models/Product";
+import User from "../../../models/User";
+import Cart from "../../../models/Cart";
+import db from "../../../utils/db";
+import auth from "../../../middleware/auth";
 const handler = nc().use(auth);
+
 handler.post(async (req, res) => {
   try {
     db.connectDb();

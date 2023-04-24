@@ -1,30 +1,48 @@
-import "../styles/reset.scss";
-import store from "../store";
+import "../styles/globals.scss";
 import { Provider } from "react-redux";
+import store from "../store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 let persistor = persistStore(store);
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <Head>
-        <title>Shopit</title>
+        <title>Shoppay</title>
         <meta
           name="description"
-          content="Shopit shopping online service for all of your need"
+          content="Shoppay-online shopping service for all of your needs."
         />
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <SessionProvider session={session}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <Component {...pageProps} />
+            <PayPalScriptProvider deferLoading={true}>
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+              />
+              <Component {...pageProps} />
+            </PayPalScriptProvider>
           </PersistGate>
         </Provider>
       </SessionProvider>
     </>
   );
 }
+
 export default MyApp;

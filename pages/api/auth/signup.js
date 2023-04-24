@@ -1,11 +1,11 @@
 import nc from "next-connect";
 import bcrypt from "bcrypt";
+import { validateEmail } from "../../../utils/validation";
+import db from "../../../utils/db";
+import User from "../../../models/User";
+import { createActivationToken } from "../../../utils/tokens";
 import { sendEmail } from "../../../utils/sendEmails";
-import { createActivationToken } from "@/utils/tokens";
-import { activateEmailTemplate } from "@/emails/activateEmailTemplates";
-import User from "@/models/User";
-import db from "@/utils/db";
-import { validateEmail } from "@/utils/valdiation";
+import { activateEmailTemplate } from "../../../emails/activateEmailTemplate";
 const handler = nc();
 
 handler.post(async (req, res) => {
