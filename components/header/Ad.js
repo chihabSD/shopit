@@ -1,12 +1,10 @@
-import React from 'react'
+import Link from "next/link";
+import styles from "./styles.module.scss";
 
-import styles from './style.module.scss'
-import Link from 'next/link'
 export default function Ad() {
   return (
     <Link href="/browse">
-        <div className={styles.ad}>
-        </div>
+      <div className={styles.ad}></div>
     </Link>
-  )
+  );
 }

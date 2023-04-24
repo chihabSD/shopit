@@ -3,8 +3,8 @@ import { BsHeart } from "react-icons/bs";
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "../../../store/cartSlice";
 import { useState, useEffect } from "react";
-import { updateCart } from "@/store/reducers/cartSlice";
 export default function Product({ product, selected, setSelected }) {
   const { cart } = useSelector((state) => ({ ...state }));
   const [active, setActive] = useState();

@@ -14,7 +14,7 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 // import required modules
 import { EffectCards, Navigation } from "swiper";
-import { userSwiperArray } from "@/data/home";
+import { userSwiperArray } from "../../../data/home";
 export default function User() {
   const { data: session } = useSession();
   return (

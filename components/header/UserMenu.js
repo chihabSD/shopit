@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./style.module.scss";
+import styles from "./styles.module.scss";
 import { signOut, signIn } from "next-auth/react";
 export default function UserMenu({ session }) {
   return (

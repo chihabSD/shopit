@@ -1,3 +1,4 @@
+import { FaStaylinked } from "react-icons/fa";
 import styles from "./styles.module.scss";
 
 export default function Products({ cart }) {

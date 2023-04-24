@@ -54,6 +54,7 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
       .max(20, "Last name must be less than 20 characters long."),
     phoneNumber: Yup.string()
       .required("Phone number is required.")
+      .phone()
       .min(3, "Phone number must be atleast 3 characters long.")
       .max(30, "Phone number must be less than 20 characters long."),
     state: Yup.string()

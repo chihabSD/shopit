@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import styles from "./styles.module.scss";
-import { calcaulateDiff } from "../home/flashDeals/utils";
-// import { calcaulateDiff } from "./utils";
+import { calcaulateDiff } from "./utils";
 const defaultRemainingTime = {
   seconds: "00",
   minutes: "00",
@@ -37,6 +36,7 @@ export default function Countdown({ date }) {
           </>
         );
       })}
+
       */}
       <span>{remainingTime?.hours.slice(0, 1)}</span>
       <span>{remainingTime?.hours.slice(1, 2)}</span>

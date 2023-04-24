@@ -1,10 +1,9 @@
-import React from "react";
-import styles from "./styles.module.scss";
-import Links from "./Link";
-import Socials from "./Socials";
+import Copyright from "./Copyright";
+import Links from "./Links";
 import NewsLetter from "./NewsLetter";
 import Payment from "./Payment";
-import Copyright from "./CopyRights";
+import Socials from "./Socials";
+import styles from "./styles.module.scss";
 
 export default function Footer({ country }) {
   return (
